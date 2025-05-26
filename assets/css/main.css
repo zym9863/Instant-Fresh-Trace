@@ -4,68 +4,77 @@
 
 @layer base {
   html {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    /* 引入更现代的字体，例如使用系统字体 */
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   }
   
   body {
-    @apply bg-gray-50 text-gray-900;
+    /* 调整背景色为更柔和的浅灰色，文本颜色保持深色 */
+    @apply bg-gray-100 text-gray-900;
   }
 }
 
 @layer components {
   .card {
-    @apply bg-white rounded-lg shadow-sm border border-gray-200 p-6;
+    /* 增强卡片视觉深度，添加更柔和的阴影 */
+    @apply bg-white rounded-xl shadow-lg border border-gray-200 p-6;
   }
   
   .btn-primary {
-    @apply bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    /* 优化主按钮样式，增加轻微的阴影和更明显的活动状态 */
+    @apply bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold py-2.5 px-6 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-md hover:shadow-lg;
   }
   
   .btn-secondary {
-    @apply bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    /* 优化次按钮样式，增加轻微的阴影 */
+    @apply bg-gray-200 hover:bg-gray-300 active:bg-gray-400 text-gray-800 font-semibold py-2.5 px-6 rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 shadow-sm hover:shadow-md;
   }
   
   .input-field {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+    /* 改进输入框焦点状态 */
+    @apply w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200;
   }
   
   .notification-badge {
-    @apply absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center;
+    /* 优化通知徽章位置和大小 */
+    @apply absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center ring-2 ring-white;
   }
 }
 
 @layer utilities {
   .text-gradient {
-    @apply bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent;
+    /* 调整渐变色，使其更具活力 */
+    @apply bg-gradient-to-r from-teal-500 to-indigo-600 bg-clip-text text-transparent;
   }
   
   .shadow-glow {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
+    /* 调整发光阴影效果 */
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
   }
 }
 
-/* 自定义滚动条 */
+/* 自定义滚动条 - 调整颜色使其更融入整体设计 */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #f1f5f9; /* Tailwind gray-100 */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 3px;
+  background: #94a3b8; /* Tailwind gray-400 */
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #64748b; /* Tailwind gray-500 */
 }
 
-/* 动画效果 */
+/* 动画效果 - 调整过渡曲线，使其更平滑自然 */
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease-out;
 }
 
 .fade-enter-from,
@@ -75,15 +84,15 @@
 
 .slide-up-enter-active,
 .slide-up-leave-active {
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* ease-out-quad */
 }
 
 .slide-up-enter-from {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(30px);
 }
 
 .slide-up-leave-to {
   opacity: 0;
-  transform: translateY(-20px);
+  transform: translateY(-30px);
 }

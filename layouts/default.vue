@@ -1,16 +1,16 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-gray-100">
     <!-- 顶部导航栏 -->
-    <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
           <!-- Logo和标题 -->
           <div class="flex items-center space-x-4">
             <NuxtLink to="/" class="flex items-center space-x-2">
-              <div class="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <span class="text-white font-bold text-sm">鲜</span>
+              <div class="w-9 h-9 bg-gradient-to-r from-teal-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-md">
+                <span class="text-white font-bold text-base">鲜</span>
               </div>
-              <span class="text-xl font-bold text-gradient">即刻鲜踪</span>
+              <span class="text-2xl font-extrabold text-gradient">即刻鲜踪</span>
             </NuxtLink>
           </div>
 
@@ -22,7 +22,7 @@
                 v-model="searchQuery"
                 type="text"
                 placeholder="搜索资讯内容..."
-                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                class="input-field pl-10"
                 @input="handleSearch"
               />
             </div>
@@ -34,19 +34,19 @@
             <button
               @click="refreshFeeds"
               :disabled="loading"
-              class="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+              class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all duration-200"
               :class="{ 'animate-spin': loading }"
             >
-              <ArrowPathIcon class="h-5 w-5" />
+              <ArrowPathIcon class="h-6 w-6" />
             </button>
 
             <!-- 通知按钮 -->
             <div class="relative">
               <button
                 @click="showNotifications = !showNotifications"
-                class="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200 relative"
+                class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all duration-200 relative"
               >
-                <BellIcon class="h-5 w-5" />
+                <BellIcon class="h-6 w-6" />
                 <span
                   v-if="unreadNotifications.length > 0"
                   class="notification-badge"
@@ -59,7 +59,7 @@
               <Transition name="fade">
                 <div
                   v-if="showNotifications"
-                  class="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50"
+                  class="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-gray-200 z-50"
                 >
                   <div class="p-4 border-b border-gray-200">
                     <div class="flex items-center justify-between">
@@ -67,7 +67,7 @@
                       <button
                         v-if="unreadNotifications.length > 0"
                         @click="markAllNotificationsAsRead"
-                        class="text-sm text-blue-600 hover:text-blue-700"
+                        class="text-sm text-blue-600 hover:text-blue-700 font-medium"
                       >
                         全部标记为已读
                       </button>
@@ -80,13 +80,13 @@
                     <div
                       v-for="notification in notifications.slice(0, 10)"
                       :key="notification.id"
-                      class="p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer"
+                      class="p-4 border-b border-gray-100 hover:bg-blue-50 cursor-pointer transition-colors duration-150"
                       :class="{ 'bg-blue-50': !notification.isRead }"
                       @click="markNotificationAsRead(notification.id)"
                     >
                       <div class="flex items-start space-x-3">
                         <div
-                          class="flex-shrink-0 w-2 h-2 rounded-full mt-2"
+                          class="flex-shrink-0 w-2.5 h-2.5 rounded-full mt-2"
                           :class="{
                             'bg-blue-500': notification.type === 'info',
                             'bg-green-500': notification.type === 'success',
@@ -109,9 +109,9 @@
             </div>
 
             <!-- 用户菜单 -->
-            <div class="flex items-center space-x-2">
-              <div class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-                <UserIcon class="h-5 w-5 text-gray-600" />
+            <div class="flex items-center space-x-2 bg-gray-100 rounded-full py-1.5 pl-2 pr-3 cursor-pointer hover:bg-gray-200 transition-colors duration-200">
+              <div class="w-8 h-8 bg-blue-200 rounded-full flex items-center justify-center">
+                <UserIcon class="h-5 w-5 text-blue-600" />
               </div>
               <span class="text-sm font-medium text-gray-700">{{ currentUser.name }}</span>
             </div>
@@ -122,7 +122,7 @@
 
     <div class="flex">
       <!-- 侧边栏 -->
-      <aside class="w-64 bg-white shadow-sm border-r border-gray-200 min-h-screen">
+      <aside class="w-64 bg-white shadow-lg min-h-screen">
         <div class="p-6">
           <!-- 分类过滤 -->
           <div class="mb-6">
@@ -131,8 +131,8 @@
               <li>
                 <button
                   @click="setSelectedCategory('all')"
-                  class="w-full text-left px-3 py-2 rounded-lg text-sm transition-colors duration-200"
-                  :class="selectedCategory === 'all' ? 'bg-blue-100 text-blue-700' : 'text-gray-600 hover:bg-gray-100'"
+                  class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200"
+                  :class="selectedCategory === 'all' ? 'bg-blue-100 text-blue-700' : 'text-gray-700 hover:bg-gray-100'"
                 >
                   <div class="flex items-center justify-between">
                     <span>全部</span>
@@ -145,8 +145,8 @@
               <li v-for="category in categoriesWithCounts" :key="category.name">
                 <button
                   @click="setSelectedCategory(category.name)"
-                  class="w-full text-left px-3 py-2 rounded-lg text-sm transition-colors duration-200"
-                  :class="selectedCategory === category.name ? 'bg-blue-100 text-blue-700' : 'text-gray-600 hover:bg-gray-100'"
+                  class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200"
+                  :class="selectedCategory === category.name ? 'bg-blue-100 text-blue-700' : 'text-gray-700 hover:bg-gray-100'"
                 >
                   <div class="flex items-center justify-between">
                     <span>{{ category.name }}</span>
@@ -165,14 +165,14 @@
               <h3 class="text-sm font-semibold text-gray-900">信息源</h3>
               <NuxtLink
                 to="/sources"
-                class="text-xs text-blue-600 hover:text-blue-700"
+                class="text-xs text-blue-600 hover:text-blue-700 font-medium"
               >
                 管理
               </NuxtLink>
             </div>
             <ul class="space-y-2">
               <li v-for="source in feedSources.slice(0, 5)" :key="source.id">
-                <div class="flex items-center space-x-2 px-3 py-2">
+                <div class="flex items-center space-x-2 px-3 py-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors duration-200">
                   <span class="text-lg">{{ source.icon || '📰' }}</span>
                   <div class="flex-1 min-w-0">
                     <p class="text-sm font-medium text-gray-900 truncate">{{ source.name }}</p>
@@ -181,7 +181,7 @@
                     </p>
                   </div>
                   <div
-                    class="w-2 h-2 rounded-full"
+                    class="w-2.5 h-2.5 rounded-full"
                     :class="source.isActive ? 'bg-green-500' : 'bg-gray-300'"
                   ></div>
                 </div>
@@ -195,7 +195,7 @@
               <h3 class="text-sm font-semibold text-gray-900">我的订阅</h3>
               <NuxtLink
                 to="/subscriptions"
-                class="text-xs text-blue-600 hover:text-blue-700"
+                class="text-xs text-blue-600 hover:text-blue-700 font-medium"
               >
                 管理
               </NuxtLink>
